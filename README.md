@@ -12,10 +12,15 @@ Se ejecutan las funciones de **phot_transformations.py** en orden, pidiendo por 
 * limites (physical) de tu imagen, consultar en ds9: valor minimo y maximo de los ejex **x** y **y**
 * valor del seeing (entero en pixeles). Define un cuadrado, el lado debe ser igual al diametro en pixeles de una estrella promedio. Consultar en ds9 también.
 
+🟢 Se ejecuta de la siguiente manera, con la terminal en el directorio isis_tools: `python3 phot_processing.py`
+
 ## ✨ save_lightcurves.py
 Se ejecutan las funciones de **czerny.py** en orden.
 Itera sobre todas las curvas de luz filtradas en **./outputs/filtered_phot.data** procesando cada una con la función **czerny** y guardando cada gráfica en **./imagenes_curvas**. 
 De esta forma se crea un catalogo visualizable en dicha carpeta, donde se podrán identificar facilmente a ojo las curvas de luz sobresalientes.
+
+  🟢 Se ejecuta de la siguiente manera, con la terminal en el directorio isis_tools: `python3 save_lightcurves.py`
+
 
 ## 📦️ Módulos
 
@@ -28,7 +33,7 @@ contiene las funciones **filter_light_curves** y **group_light_curves**.
 
 ### czerny.py
 Contiene las dos funciones: **czerny** y **czerny_plot**
-* **czerny:** Recibe el nombre de la curva de luz a procesar ej. 'lc580.data' y aplica el metodo de Schwarzenberg-czerny (DOI 10.1086/309985), que busca periodicidad en las curvas de luz.
+* **czerny:** Recibe el nombre de la curva de luz a procesar ej. 'lc580.data' y aplica el _metodo de Schwarzenberg-czerny (DOI 10.1086/309985)_, que busca periodicidad en las curvas de luz.
   Al final imprime el periodo calculado y escribe el archivo *./lc.data* con la curva de luz en fase.
 *  **czerny_plot:** Grafica la curva de luz en fase generada por la funcion **czerny**.
 
@@ -40,7 +45,7 @@ contiene una variedad de funciones para hacer gráficos de las curvas de luz: **
 * **plot_lc_gropued:** requiere la lista *inputs/lc_list_group.data*, donde se listaran las curvas de luz a graficar en conjunto.
   
 
-### 💬 apendice
+## 💬 apendice
 **direcciones**
 * '.' : directorio actual
 * '..' : un directorio arriba
