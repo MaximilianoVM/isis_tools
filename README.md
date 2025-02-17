@@ -12,11 +12,16 @@ Se ejecutan las funciones de **phot_transformations.py** en orden, pidiendo por 
 * limites (physical) de tu imagen, consultar en ds9: valor minimo y maximo de los ejex **x** y **y**
 * valor del seeing (entero en pixeles). Define un cuadrado, el lado debe ser igual al diametro en pixeles de una estrella promedio. Consultar en ds9 también.
 
+Los archivos de salida son un listado filtrado y otro filtrado y agrupado. <br>
+El agrupado se hace ya que varias curvas de luz pueden corresponder a una misma estrella. <br>
+Ambos se encuentran en la carpeta _./outputs_.
+
 🟢 Se ejecuta de la siguiente manera, con la terminal en el directorio isis_tools: `python3 phot_processing.py`
 
 ## ✨ save_lightcurves.py
 Se ejecutan las funciones de **czerny.py** en orden.
 Itera sobre todas las curvas de luz filtradas en **./outputs/filtered_phot.data** procesando cada una con la función **czerny** y guardando cada gráfica en **./imagenes_curvas**. 
+
 De esta forma se crea un catalogo visualizable en dicha carpeta, donde se podrán identificar facilmente a ojo las curvas de luz sobresalientes.
 
   🟢 Se ejecuta de la siguiente manera, con la terminal en el directorio isis_tools: `python3 save_lightcurves.py`
