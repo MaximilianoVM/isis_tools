@@ -1,10 +1,14 @@
 import numpy as np
+import os
 
 # filtra por dimensiones y threshold de abs_value (ultima columna)
 def filter_light_curves(threshold=0, x_inf=0, x_sup=10, y_inf=0, y_sup=10):
     
     input_file='../register3/phot.data' # archivo a procesar (en register#)
     output_file='./outputs/filtered_phot.data' # archivo que vamos a generar (no estoy seguro donde)
+    
+    # crear carpetas si no existen 
+    os.makedirs('./outputs', exist_ok=True)
     
     with open(input_file, 'r') as infile, open(output_file, 'w') as outfile:
         for line in infile:
@@ -24,6 +28,9 @@ def group_light_curves(seeing=0):
     
     input_file='./outputs/filtered_phot.data'
     output_file='./outputs/grouped_phot.data'
+    
+    # crear carpetas si no existen 
+    os.makedirs('./outputs', exist_ok=True)
     
     data = []
     # leemos los datos y guardamos en data=[]
