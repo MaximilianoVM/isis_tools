@@ -1,6 +1,6 @@
 Scripts auxiliares para la interpretación y filtrado de resultados con ISIS (image subtraction package): https://www.iap.fr/useriap/alard/package.html
 
-En el manejo de este programa, es muy posible que se genere una gran cantidad de falsos positivos, el proposito de estas herramientas es el filtrado y facil identificación de los resultados realmente importantes.
+En el manejo del paquete ISIS, es muy posible que se genere una gran cantidad de falsos positivos. El proposito de estas herramientas es el filtrado y facil identificación de los resultados realmente importantes.
 
 
 📌 La carpeta **isis_tools** debe ser colocada en el directorio **package** de ISIS: **package/isis_tools**
