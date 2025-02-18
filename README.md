@@ -3,7 +3,7 @@ Scripts auxiliares para la interpretación y filtrado de resultados con ISIS (im
 En el manejo del paquete ISIS, es muy posible que se genere una gran cantidad de falsos positivos. El proposito de estas herramientas es el filtrado y facil identificación de los resultados realmente importantes.
 
 
-📌 La carpeta **isis_tools** (con todo este repo) debe ser colocada en el directorio **package** de ISIS: **package/isis_tools**
+📌 La carpeta **isis_tools** (todo este repo) debe ser colocada en el directorio **package** de ISIS: **package/isis_tools**
 
 
 ## ✨ phot_processing.py
