@@ -33,6 +33,8 @@ De esta forma se crea un catalogo visualizable en dicha carpeta, donde se podrá
 
   🟢 Se ejecuta de la siguiente manera, con la terminal en el directorio isis_tools: `python3 save_lightcurves.py`
 
+<img src="https://github.com/user-attachments/assets/878d6972-29f0-48ce-af6d-2ced77023945" width="500">
+
 
 ## 📦️ Módulos
 
