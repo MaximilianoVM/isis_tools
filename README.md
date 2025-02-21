@@ -8,9 +8,15 @@ En el manejo del paquete ISIS, es muy posible que se genere una gran cantidad de
 
 ## ✨ phot_processing.py
 Se ejecutan las funciones de **phot_transformations.py** en orden, pidiendo por terminal los parametros requeridos: 
-* umbral minimo de la ultima columna en **phot.data** (mayores valores pueden ser un buen indicio de variabilidad real)
+* umbral minimo de la ultima columna en **phot.data** (mayores valores pueden ser un buen indicio de variabilidad real):
+  <img src="https://github.com/user-attachments/assets/6387faf2-9eec-412b-935c-e301f6f2a9fb" width="300">
 * limites (physical) de tu imagen, consultar en ds9: valor minimo y maximo de los ejex **x** y **y**
-* valor del seeing (entero en pixeles). Define un cuadrado, el lado debe ser igual al diametro en pixeles de una estrella promedio. Consultar en ds9 también.
+  
+  <img src="https://github.com/user-attachments/assets/bb64f890-c3da-496f-a410-9c10565ea6d7" width="300">
+* valor del seeing (entero en pixeles). Define un cuadrado, el lado debe ser igual al diametro en pixeles de una estrella promedio. Consultar en ds9 physical también.
+  
+  <img src="https://github.com/user-attachments/assets/2d2a9bc1-0298-4954-b064-24cea0630e1c" width="300">
+
 
 Los archivos de salida son un listado filtrado y otro filtrado y agrupado. <br>
 El agrupado se hace ya que varias curvas de luz pueden corresponder a una misma estrella. <br>
