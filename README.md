@@ -9,6 +9,7 @@ En el manejo del paquete ISIS, es muy posible que se genere una gran cantidad de
 ## ✨ phot_processing.py
 Se ejecutan las funciones de **phot_transformations.py** en orden, pidiendo por terminal los parametros requeridos: 
 * umbral minimo de la ultima columna en **phot.data** (mayores valores pueden ser un buen indicio de variabilidad real):
+  
   <img src="https://github.com/user-attachments/assets/6387faf2-9eec-412b-935c-e301f6f2a9fb" width="300">
 * limites (physical) de tu imagen, consultar en ds9: valor minimo y maximo de los ejex **x** y **y**
   
