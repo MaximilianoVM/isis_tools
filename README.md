@@ -5,6 +5,8 @@ En el manejo del paquete ISIS, es muy posible que se genere una gran cantidad de
 
 📌 La carpeta **isis_tools** (todo este repo) debe ser colocada en el directorio **package** de ISIS: **package/isis_tools**
 
+📌 Todas las tareas se realizan sobre los directorios propios `images3` y `register3`
+
 
 ## ✨ phot_processing.py
 Se ejecutan las funciones de **phot_transformations.py** en orden, pidiendo por terminal los parametros requeridos: 
