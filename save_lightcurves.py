@@ -18,7 +18,10 @@ os.makedirs(output_dir, exist_ok=True)
 
 
 # sacamos los lc*data de nuestro filtrado
-file_list_dir='./outputs/filtered_phot.data'
+#while list_file != 
+#list_dir = input("Procesar: \n 1. lista filtrada \n 2. lista completa")
+#file_list_dir='./outputs/filtered_phot.data'
+file_list_dir='../register3/phot.data'
 data = pd.read_csv(file_list_dir, sep=' ', header=None)
 
 file_list = data.iloc[:, 4].tolist()
