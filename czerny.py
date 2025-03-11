@@ -15,6 +15,22 @@ def czerny(lc_file='lc0.data'):
     print("🔍 Salida estandar de czerny:\n", result.stdout)
     if result.stderr:
         print("⚠️ Errores de czerny:\n", result.stderr)
+        
+        
+    # ---------------------
+    # Obtener la última línea del output
+    output_lines = result.stdout.splitlines()
+    if output_lines:
+        last_line = output_lines[-1]
+        print(f"📄 Última línea del output: {last_line}")
+
+        # Guardar la última línea en un archivo
+        with open("./outputs/last_line.txt", "w") as file:
+            file.write(last_line + "\n")  # Añadir un salto de línea al final
+        print("✅ Última línea guardada en 'last_line.txt'")
+    else:
+        print("❌ No hay salida para procesar.")
+    # ---------------
 
     # Esperar a que el archivo se genere
     if not os.path.exists(lc_output):
@@ -25,24 +41,34 @@ def czerny(lc_file='lc0.data'):
 #czerny()
 
 def czerny_plot(lc_num='#'): 
-    lc_output='./lc.data'
-    output_dir = "./imagenes_curvas"
+    lc_output='./lc.data' # datos a graficar
+    output_dir = "./imagenes_curvas" # aqui se guardan
+    last_line_file = "./outputs/last_line.txt"  # Archivo con la última línea
+    
+    # Leer la última línea del archivo
+    try:
+        with open(last_line_file, "r") as file:
+            last_line = file.readline().strip()  # Leer y eliminar saltos de línea
+    except FileNotFoundError:
+        print(f"❌ Error: No se encontró el archivo {last_line_file}")
+        last_line = f"Curva de luz en fase ({lc_num})"  # Título por defecto
 
+    # cargar datos 
     data = np.loadtxt(lc_output)
     phase = data[:, 0]  # 1ra columna: Fase
     flux = data[:, 1]   # 2da columna: Flujo
 
     # Generar grafica
     plt.figure(figsize=(8, 6))
-    plt.scatter(phase, flux, s=10, color='blue', label=f'Curva {lc_num}')
+    plt.scatter(phase, flux, s=10, color='magenta', label=f'Curva {lc_num}')
     plt.xlabel('Fase')
     plt.ylabel('Flujo')
-    plt.title(f'Curva de luz en fase ({lc_num})')
+    plt.title(last_line)
     plt.legend()
     plt.grid()
     
     # Guardar imagen
-    save_path = os.path.join(output_dir, f"{lc_num}.png")
+    save_path = os.path.join(output_dir, f"{lc_num}_P.png")
     plt.savefig(save_path, dpi=300)
     plt.close()
 
