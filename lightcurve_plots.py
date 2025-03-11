@@ -44,6 +44,34 @@ def plot_lc(lc_path='./images3/lc0.data'):
     plt.legend()
     plt.grid()
     plt.show()
+    
+# === PLOT LC ESPECIFICA Y GUARDAR ===
+def plot_save_lc(lc_name='lc1.data', filtro='blue'): 
+    #lc_dir='./lc.data' # datos a graficar
+    output_dir = "./imagenes_curvas" # aqui se guardan
+    
+    # Carga de datos
+    #data = np.loadtxt('/home/max/.iraf/ISIS/package/images3/lc90.data')
+    data = np.loadtxt(f'../images3/{lc_name}')
+    jd = data[:, 0] # fecha (JD)
+    values = data[:, 1] # valores 
+
+    # Generar la grafica
+    plt.figure(figsize=(8, 6))
+    plt.scatter(jd, values, s=10, color=filtro, label='Curva de luz')
+    plt.xlabel('JD')
+    plt.ylabel('Value')
+    plt.title(f'Curva de Luz ({lc_name})')
+    plt.legend()
+    plt.grid()
+    #plt.show()
+    
+    # Guardar imagen
+    save_path = os.path.join(output_dir, f"{lc_name}.png")
+    plt.savefig(save_path, dpi=300)
+    plt.close()
+
+    print(f"✅ Guardada: {save_path}")
 
 
 # === PLOT LCs EN GRUPO ===
