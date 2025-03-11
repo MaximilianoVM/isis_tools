@@ -1,21 +1,42 @@
 Scripts auxiliares para la interpretación y filtrado de resultados con ISIS (image subtraction package): https://www.iap.fr/useriap/alard/package.html
 
-En el manejo de este programa, es muy posible que se genere una gran cantidad de falsos positivos, el proposito de estas herramientas es el filtrado y facil identificación de los resultados realmente importantes.
+En el manejo del paquete ISIS, es muy posible que se genere una gran cantidad de falsos positivos. El proposito de estas herramientas es el filtrado y facil identificación de los resultados realmente importantes.
 
 
-📌 La carpeta **isis_tools** debe ser colocada en el directorio **package** de ISIS: **package/isis_tools**
+📌 La carpeta **isis_tools** (todo este repo) debe ser colocada en el directorio **package** de ISIS: **package/isis_tools**
+
+📌 Todas las tareas se realizan sobre los directorios propios `images3` y `register3`
 
 
 ## ✨ phot_processing.py
 Se ejecutan las funciones de **phot_transformations.py** en orden, pidiendo por terminal los parametros requeridos: 
-* umbral minimo de la ultima columna en **phot.data** (mayores valores pueden ser un buen indicio de variabilidad real)
+* umbral minimo de la ultima columna en **phot.data** (mayores valores pueden ser un buen indicio de variabilidad real):
+  
+  <img src="https://github.com/user-attachments/assets/6387faf2-9eec-412b-935c-e301f6f2a9fb" width="300">
 * limites (physical) de tu imagen, consultar en ds9: valor minimo y maximo de los ejex **x** y **y**
-* valor del seeing (entero en pixeles). Define un cuadrado, el lado debe ser igual al diametro en pixeles de una estrella promedio. Consultar en ds9 también.
+  
+  <img src="https://github.com/user-attachments/assets/bb64f890-c3da-496f-a410-9c10565ea6d7" width="300">
+* valor del seeing (entero en pixeles). Define un cuadrado, el lado debe ser igual al diametro en pixeles de una estrella promedio. Consultar en ds9 physical también.
+  
+  <img src="https://github.com/user-attachments/assets/2d2a9bc1-0298-4954-b064-24cea0630e1c" width="300">
+
+
+Los archivos de salida son un listado filtrado y otro filtrado y agrupado. <br>
+El agrupado se hace ya que varias curvas de luz pueden corresponder a una misma estrella. <br>
+Ambos se encuentran en la carpeta _./outputs_.
+
+🟢 Se ejecuta de la siguiente manera, con la terminal en el directorio isis_tools: `python3 phot_processing.py`
 
 ## ✨ save_lightcurves.py
 Se ejecutan las funciones de **czerny.py** en orden.
 Itera sobre todas las curvas de luz filtradas en **./outputs/filtered_phot.data** procesando cada una con la función **czerny** y guardando cada gráfica en **./imagenes_curvas**. 
+
 De esta forma se crea un catalogo visualizable en dicha carpeta, donde se podrán identificar facilmente a ojo las curvas de luz sobresalientes.
+
+  🟢 Se ejecuta de la siguiente manera, con la terminal en el directorio isis_tools: `python3 save_lightcurves.py`
+
+<img src="https://github.com/user-attachments/assets/878d6972-29f0-48ce-af6d-2ced77023945" width="500">
+
 
 ## 📦️ Módulos
 
@@ -28,7 +49,7 @@ contiene las funciones **filter_light_curves** y **group_light_curves**.
 
 ### czerny.py
 Contiene las dos funciones: **czerny** y **czerny_plot**
-* **czerny:** Recibe el nombre de la curva de luz a procesar ej. 'lc580.data' y aplica el metodo de Schwarzenberg-czerny (DOI 10.1086/309985), que busca periodicidad en las curvas de luz.
+* **czerny:** Recibe el nombre de la curva de luz a procesar ej. 'lc580.data' y aplica el _metodo de Schwarzenberg-czerny (DOI 10.1086/309985)_, que busca periodicidad en las curvas de luz.
   Al final imprime el periodo calculado y escribe el archivo *./lc.data* con la curva de luz en fase.
 *  **czerny_plot:** Grafica la curva de luz en fase generada por la funcion **czerny**.
 
@@ -40,7 +61,7 @@ contiene una variedad de funciones para hacer gráficos de las curvas de luz: **
 * **plot_lc_gropued:** requiere la lista *inputs/lc_list_group.data*, donde se listaran las curvas de luz a graficar en conjunto.
   
 
-### 💬 apendice
+## 💬 apendice
 **direcciones**
 * '.' : directorio actual
 * '..' : un directorio arriba
