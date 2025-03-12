@@ -2,6 +2,7 @@ import os
 import subprocess
 import numpy as np
 import matplotlib.pyplot as plt
+import pandas as pd
 
 # === PLOT EN FASE === 
 # ojo con lc_path dependiendo de donde ejecutes czerny
@@ -56,12 +57,17 @@ def plot_save_lc(lc_name='lc1.data', filtro='blue'):
     jd = data[:, 0] # fecha (JD)
     values = data[:, 1] # valores 
 
+    #coordenadas
+    coords_data = pd.read_csv('../register3/phot.data', sep=' ', header=None)
+    lc_data = coords_data[coords_data[4] == lc_name]
+    lc_coords =  int(lc_data[2]), int(lc_data[3])
+
     # Generar la grafica
     plt.figure(figsize=(8, 6))
     plt.scatter(jd, values, s=10, color=filtro, label='Curva de luz')
     plt.xlabel('JD')
     plt.ylabel('Value')
-    plt.title(f'Curva de Luz ({lc_name})')
+    plt.title(f'Curva de Luz ({lc_name}), coords:{lc_coords}')
     plt.legend()
     plt.grid()
     #plt.show()
