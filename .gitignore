@@ -1,6 +1,7 @@
 /__pycache__
-/imagenes_curvas
+/imagenes_curvas*
 /lab.ipynb
 /lc.data
 /spectra.data
 /test_phot_sort.py
+/outputs/*
