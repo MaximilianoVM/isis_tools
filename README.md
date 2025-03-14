@@ -12,7 +12,7 @@ En el manejo del paquete ISIS, es muy posible que se genere una gran cantidad de
 Se ejecutan las funciones de **phot_transformations.py** en orden, pidiendo por terminal los parametros requeridos: 
 * umbral minimo de la ultima columna en **phot.data** (mayores valores pueden ser un buen indicio de variabilidad real):
   
-  <img src="https://github.com/user-attachments/assets/bb64f890-c3da-496f-a410-9c10565ea6d7" width="300">
+  <img src="https://github.com/user-attachments/assets/07726fc8-caf3-456a-837b-474d8dd8ae68" width="400">
 * valor del seeing (entero en pixeles). Define un cuadrado, el lado debe ser igual al diametro en pixeles de una estrella promedio. Consultar en ds9 physical también.
   
   <img src="https://github.com/user-attachments/assets/2d2a9bc1-0298-4954-b064-24cea0630e1c" width="300">
