@@ -55,9 +55,9 @@ def plot_save_lc(lc_name='lc1.data', filtro='blue'):
     #data = np.loadtxt('/home/max/.iraf/ISIS/package/images3/lc90.data')
     data = np.loadtxt(f'../images3/{lc_name}')
     jd = data[:, 0] # fecha (JD)
-    values = data[:, 1] # valores 
+    values = data[:, 1] # valores (que son?)
 
-    #coordenadas
+    # coordenadas
     coords_data = pd.read_csv('../register3/phot.data', sep=' ', header=None)
     lc_data = coords_data[coords_data[4] == lc_name]
     lc_coords =  int(lc_data[2]), int(lc_data[3])
