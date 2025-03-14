@@ -4,16 +4,16 @@ import numpy as np
 import matplotlib.pyplot as plt
 import pandas as pd
 
-def czerny(lc_file='lc0.data'): 
+def czerny(lc_file='lc0.data', set=3): 
     lc_output = "lc.data"  # Archivo de salida esperado
     print(f"\n⚙️ Procesando {lc_file}...")
 
     # Ejecutar czerny y esperar a que termine
-    czerny_command = f"../bin/czerny -i ../images3/{lc_file} -a 0.2 -n 1"
+    czerny_command = f"../bin/czerny -i ../images{set}/{lc_file} -a 0.2 -n 1"
     result = subprocess.run(czerny_command, shell=True, capture_output=True, text=True)
 
     #coordenadas
-    coords_data = pd.read_csv('../register3/phot.data', sep=' ', header=None)
+    coords_data = pd.read_csv(f'../register{set}/phot.data', sep=' ', header=None)
     lc_data = coords_data[coords_data[4] == lc_file]
     lc_coords =  int(lc_data[2]), int(lc_data[3])
     #
@@ -47,9 +47,9 @@ def czerny(lc_file='lc0.data'):
     
 #czerny()
 
-def czerny_plot(lc_num='#'): 
+def czerny_plot(lc_num='#', set=set): 
     lc_output='./lc.data' # datos a graficar
-    output_dir = "./imagenes_curvas" # aqui se guardan
+    output_dir = f"./imagenes_curvas_{set}" # aqui se guardan
     last_line_file = "./outputs/last_line.txt"  # Archivo con la última línea
     
     # Leer la última línea del archivo
@@ -67,7 +67,7 @@ def czerny_plot(lc_num='#'):
 
     # Generar grafica
     plt.figure(figsize=(8, 6))
-    plt.scatter(phase, flux, s=10, color='magenta', label=f'Curva {lc_num}')
+    plt.scatter(phase, flux, s=1, color='magenta', label=f'Curva {lc_num}')
     plt.xlabel('Fase')
     plt.ylabel('Flujo')
     plt.title(last_line)

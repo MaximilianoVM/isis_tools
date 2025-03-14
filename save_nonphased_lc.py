@@ -1,16 +1,19 @@
 import os
 import pandas as pd
 
-from lightcurve_plots import plot_save_lc
+from lightcurve_plots import save_lc
+
+
+set = int(input("ingresa el NUMERO del set. ej: 3 para images3, 2 para images2: \n"))
 
 # Definir directorios
-output_dir = "./imagenes_curvas"
+output_dir = f"./imagenes_curvas_{set}"
 # Crear carpeta si no existe
 os.makedirs(output_dir, exist_ok=True)
 
 
 # sacamos los lc*data de nuestro filtrado
-file_list_dir='../register3/phot.data'
+file_list_dir=f'../register{set}/phot.data'
 data = pd.read_csv(file_list_dir, sep=' ', header=None)
 
 file_list = data.iloc[:, 4].tolist()
@@ -20,7 +23,7 @@ for lc_i in file_list:
     print(f"\n⚙️ Procesando {lc_i}...")
     
     # guardar curvas
-    plot_save_lc(lc_name=lc_i)
+    save_lc(lc_name=lc_i, set=set)
 
 
 print("\n🚀 Proceso completado. Las imagenes estan en:", output_dir)

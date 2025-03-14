@@ -6,7 +6,9 @@ import pandas as pd
 
 # === PLOT EN FASE === 
 # ojo con lc_path dependiendo de donde ejecutes czerny
-def plot_phase(lc_path='./images3/lc.data'): 
+def plot_phase(set='3'): 
+    
+    lc_path=f'./images{set}/lc.data'
     data = np.loadtxt(lc_path)
     
     # Separacion de columnas
@@ -15,7 +17,7 @@ def plot_phase(lc_path='./images3/lc.data'):
 
     # Generar la grafica
     plt.figure(figsize=(8, 6))
-    plt.scatter(phase, flux, s=10, color='blue', label='Curva de luz')
+    plt.scatter(phase, flux, s=1, color='blue', label='Curva de luz')
     plt.xlabel('Fase')
     plt.ylabel('Flujo')
     plt.title('Curva de luz en fase (lc#.data)')
@@ -26,19 +28,13 @@ def plot_phase(lc_path='./images3/lc.data'):
 # === PLOT LC ESPECIFICA ===
 def plot_lc(lc_path='./images3/lc0.data'): 
     # Carga de datos
-    #data = np.loadtxt('/home/max/.iraf/ISIS/package/images3/lc90.data')
     data = np.loadtxt(lc_path)
     jd = data[:, 0]
     values = data[:, 1]
 
-
-    # Separacion de columnas
-    #phase = data[:, 0]  # Primera columna: Fase
-    #flux = data[:, 1]   # Segunda columna: Flujo
-
     # Generar la grafica
     plt.figure(figsize=(8, 6))
-    plt.scatter(jd, values, s=10, color='blue', label='Curva de luz')
+    plt.scatter(jd, values, s=1, color='blue', label='Curva de luz')
     plt.xlabel('Fase')
     plt.ylabel('Flujo')
     plt.title('Curva de Luz (lc.data)')
@@ -46,25 +42,23 @@ def plot_lc(lc_path='./images3/lc0.data'):
     plt.grid()
     plt.show()
     
-# === PLOT LC ESPECIFICA Y GUARDAR ===
-def plot_save_lc(lc_name='lc1.data', filtro='blue'): 
-    #lc_dir='./lc.data' # datos a graficar
-    output_dir = "./imagenes_curvas" # aqui se guardan
+# === SAVE LC ESPECIFICA ===
+def save_lc(lc_name='lc1.data', set=3, color='blue'): 
+    output_dir = f"./imagenes_curvas_{set}" # aqui se guardan
     
     # Carga de datos
-    #data = np.loadtxt('/home/max/.iraf/ISIS/package/images3/lc90.data')
-    data = np.loadtxt(f'../images3/{lc_name}')
+    data = np.loadtxt(f'../images{set}/{lc_name}')
     jd = data[:, 0] # fecha (JD)
     values = data[:, 1] # valores (que son?)
 
     # coordenadas
-    coords_data = pd.read_csv('../register3/phot.data', sep=' ', header=None)
+    coords_data = pd.read_csv(f'../register{set}/phot.data', sep=' ', header=None)
     lc_data = coords_data[coords_data[4] == lc_name]
     lc_coords =  int(lc_data[2]), int(lc_data[3])
 
     # Generar la grafica
     plt.figure(figsize=(8, 6))
-    plt.scatter(jd, values, s=10, color=filtro, label='Curva de luz')
+    plt.scatter(jd, values, s=1, color=color, label='Curva de luz')
     plt.xlabel('JD')
     plt.ylabel('Value')
     plt.title(f'Curva de Luz ({lc_name}), coords:{lc_coords}')
@@ -109,7 +103,7 @@ def plot_lc_grouped(file_list_dir='./inputs/lc_list_group.data'):
 
     # Generar la gráfica
     plt.figure(figsize=(10, 7))
-    plt.scatter(jd_combined, values_combined, s=10, color='blue', label='Curva de luz combinada')
+    plt.scatter(jd_combined, values_combined, s=1, color='blue', label='Curva de luz combinada')
     plt.xlabel('Fase (JD)')
     plt.ylabel('Flujo')
     plt.title('Curva de Luz Combinada')
