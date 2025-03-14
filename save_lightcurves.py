@@ -1,26 +1,15 @@
 import os
-import subprocess
-import numpy as np
-import matplotlib.pyplot as plt
 import pandas as pd
 
 from czerny import czerny, czerny_plot
 
-# Pedir el numero total de curvas de luz
-#num_curves = int(input("Ingrese el numero total de curvas de luz a procesar: "))
-
 # Definir directorios
-#images3_dir = "../images3"
 output_dir = "./imagenes_curvas"
 # Crear carpeta si no existe
 os.makedirs(output_dir, exist_ok=True)
 
 
-
 # sacamos los lc*data de nuestro filtrado
-#while list_file != 
-#list_dir = input("Procesar: \n 1. lista filtrada \n 2. lista completa")
-#file_list_dir='./outputs/filtered_phot.data'
 file_list_dir='../register3/phot.data'
 data = pd.read_csv(file_list_dir, sep=' ', header=None)
 
@@ -38,22 +27,3 @@ for lc_i in file_list:
 
 
 print("\n🚀 Proceso completado. Las imagenes estan en:", output_dir)
-
-
-
-
-# Procesar cada curva de luz
-#for i in range(num_curves):
-#    lc_file = f"lc{i}.data"
-
-#    print(f"\n⚙️ Procesando {lc_file}...")
-    
-    # ejecutar czerny para cada lc#
-#    czerny(lc_file)
-    
-    # guardar curvas
-#    czerny_plot(lc_num=i)
-
-
-#print("\n🚀 Proceso completado. Las imagenes estan en:", output_dir)
-
