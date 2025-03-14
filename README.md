@@ -26,7 +26,7 @@ Ambos se encuentran en la carpeta _./outputs_.
 
 ## ✨ save_lightcurves.py
 Se ejecutan las funciones de **czerny.py** en orden.
-Itera sobre todas las curvas de luz filtradas en **./outputs/filtered_phot.data** procesando cada una con la función **czerny** y guardando cada gráfica en **./imagenes_curvas**. 
+Itera sobre todas las curvas de luz filtradas en **./outputs/filtered_phot.data** procesando cada una con la función **czerny** y guardando cada gráfica en **./imagenes_curvas_set**. 
 
 De esta forma se crea un catalogo visualizable en dicha carpeta, donde se podrán identificar facilmente a ojo las curvas de luz sobresalientes.
 
