@@ -2,6 +2,7 @@ import os
 import subprocess
 import numpy as np
 import matplotlib.pyplot as plt
+import pandas as pd
 
 def czerny(lc_file='lc0.data'): 
     lc_output = "lc.data"  # Archivo de salida esperado
@@ -11,6 +12,12 @@ def czerny(lc_file='lc0.data'):
     czerny_command = f"../bin/czerny -i ../images3/{lc_file} -a 0.2 -n 1"
     result = subprocess.run(czerny_command, shell=True, capture_output=True, text=True)
 
+    #coordenadas
+    coords_data = pd.read_csv('../register3/phot.data', sep=' ', header=None)
+    lc_data = coords_data[coords_data[4] == lc_file]
+    lc_coords =  int(lc_data[2]), int(lc_data[3])
+    #
+    
     # Mostrar salida y errores de czerny
     print("🔍 Salida estandar de czerny:\n", result.stdout)
     if result.stderr:
@@ -26,7 +33,7 @@ def czerny(lc_file='lc0.data'):
 
         # Guardar la última línea en un archivo
         with open("./outputs/last_line.txt", "w") as file:
-            file.write(last_line + "\n")  # Añadir un salto de línea al final
+            file.write(last_line + str(lc_coords) + "\n")  # Añadir un salto de línea al final
         print("✅ Última línea guardada en 'last_line.txt'")
     else:
         print("❌ No hay salida para procesar.")
