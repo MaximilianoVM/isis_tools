@@ -2,7 +2,7 @@ import numpy as np
 import os
 
 # filtra por dimensiones y threshold de abs_value (ultima columna)
-def filter_light_curves(threshold=0, x_inf=0, x_sup=10, y_inf=0, y_sup=10):
+def filter_light_curves(threshold=0):
     
     input_file='../register3/phot.data' # archivo a procesar (en register#)
     output_file='./outputs/filtered_phot.data' # archivo que vamos a generar (no estoy seguro donde)
@@ -20,7 +20,7 @@ def filter_light_curves(threshold=0, x_inf=0, x_sup=10, y_inf=0, y_sup=10):
             abs_value = float(data[6])
             x, y = float(data[0]), float(data[1])
             # discriminamos:
-            if x>x_inf and x<x_sup and y>y_inf and y<y_sup and abs_value > threshold:
+            if abs_value > threshold:
                 outfile.write(line)
 
 # agrupa las lc por proximidad 
