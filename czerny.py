@@ -47,7 +47,7 @@ def czerny(lc_file='lc0.data', set=3):
     
 #czerny()
 
-def czerny_plot(lc_num='#', set=set): 
+def czerny_plot(lc_num='#', set=set, color='magenta'): 
     lc_output='./lc.data' # datos a graficar
     output_dir = f"./imagenes_curvas_{set}" # aqui se guardan
     last_line_file = "./outputs/last_line.txt"  # Archivo con la última línea
@@ -67,7 +67,7 @@ def czerny_plot(lc_num='#', set=set):
 
     # Generar grafica
     plt.figure(figsize=(8, 6))
-    plt.scatter(phase, flux, s=1, color='magenta', label=f'Curva {lc_num}')
+    plt.scatter(phase, flux, s=1, color=color, label=f'Curva {lc_num}')
     plt.xlabel('Fase')
     plt.ylabel('Flujo')
     plt.title(last_line)

@@ -4,6 +4,7 @@ import pandas as pd
 from czerny import czerny, czerny_plot
 
 set = int(input("ingresa el NUMERO del set. ej: 3 para images3, 2 para images2: \n"))
+color = str(input("ingresa el color para tus curvas \n ej. red, magenta, purple, blue"))
 
 
 # Definir directorios
@@ -26,7 +27,7 @@ for lc_i in file_list:
     czerny(lc_file=lc_i, set=set)
     
     # guardar curvas
-    czerny_plot(lc_num=lc_i, set=set)
+    czerny_plot(lc_num=lc_i, set=set, color=color)
 
 
 print("\n🚀 Proceso completado. Las imagenes estan en:", output_dir)

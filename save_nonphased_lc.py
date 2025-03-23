@@ -5,6 +5,7 @@ from lightcurve_plots import save_lc
 
 
 set = int(input("ingresa el NUMERO del set. ej: 3 para images3, 2 para images2: \n"))
+color = str(input("ingresa el color para tus curvas \n ej. red, magenta, purple, blue"))
 
 # Definir directorios
 output_dir = f"./imagenes_curvas_{set}"
@@ -23,7 +24,7 @@ for lc_i in file_list:
     print(f"\n⚙️ Procesando {lc_i}...")
     
     # guardar curvas
-    save_lc(lc_name=lc_i, set=set)
+    save_lc(lc_name=lc_i, set=set, color=color)
 
 
 print("\n🚀 Proceso completado. Las imagenes estan en:", output_dir)
