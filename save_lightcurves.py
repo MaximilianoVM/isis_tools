@@ -3,8 +3,8 @@ import pandas as pd
 
 from czerny import czerny, czerny_plot
 
-set = int(input("ingresa el NUMERO del set. ej: 3 para images3, 2 para images2: \n"))
-color = str(input("ingresa el color para tus curvas \n ej. red, magenta, purple, blue"))
+set = int(input("ingresa el NUMERO del set. 🗃️ ej: 3 para images3, 2 para images2: \n"))
+color = str(input("ingresa el color para tus curvas \n ej. red 🔴, magenta 🟣, green 🟢, blue 🔵:\n"))
 
 
 # Definir directorios
