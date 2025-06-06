@@ -3,40 +3,49 @@ import glob
 import re
 import os
 
-from process_methods import format_archives, offset, merge_data, instrumental_magnitude
+from process_methods import format_archives, calculate_offset, merge_by_date, instrumental_magnitude
 
 DATA_DIR = str(input("DATA_DIR: ej. NGC_6426V \n"))
 IMAGES_DIR = str(input("IMAGES_DIR: ej. 6426V \n"))
 header_file = f'{DATA_DIR}/header_info_images{IMAGES_DIR}'
+
+DATE_FORMAT = str(input("JD o HJD \n"))
 
 pattern = re.compile(r"lc(\d+)\.data$")
 
 for file in glob.glob(f"{DATA_DIR}/lc*.data"):
     match = pattern.search(os.path.basename(file))
     if not match:
-        continue  # saltar archivos que no tienen número
+        continue  # skip archives w no number
 
-    number = match.group(1)  # extrae el número
+    number = match.group(1)  # extract number
     print(f"Procesando {file}...")
 
     
-    # datos a dataframes y asignamos nombres de columnas
-    header_info_df, lc_data_df = format_archives(header_file, file, 'HJD')
-    # aplicamos offset para el posterior paso de magnitudes
-    lc_data_df = offset(lc_data_df)
-    # asignamos sus headers a los datos para mejor manejo en un solo df
-    merged_df = merge_data(lc_data_df, header_info_df, 'HJD')
-    # pasamos el flujo a magnitud instrumental 
-    instrumental_magnitude(merged_df)
+    # PROCESSING
+    header_info_df, lc_data_df = format_archives(header_file, file, DATE_FORMAT)
+    #lc_data_df = calculate_offset(lc_data_df)
+    merged_df = merge_by_date(lc_data_df, header_info_df, DATE_FORMAT)
+    processed_df = instrumental_magnitude(merged_df)
 
-    # guardamos
+    # DIRECTORIES
     output_dir = f"{DATA_DIR}/processed"
     output_path = f"{output_dir}/lc{number}_processed.data"
-    # crear directorios si no existen
+    # create dirs if not exist
     os.makedirs(output_dir, exist_ok=True)
+    
+    # order columns
+    if "MagInstr" in processed_df.columns and "Flux" in processed_df.columns:
+        cols = list(processed_df.columns)
+        cols.remove("MagInstr")
+        flujo_index = cols.index("Flux")
+        cols.insert(flujo_index + 1, "MagInstr")
+        processed_df = processed_df[cols]
+        
+    processed_df = processed_df.drop(['refFlux', 'errFlux', 'errRefF'], axis=1)
 
-    # guardar archivo
-    merged_df.to_csv(output_path, sep='\t', index=False)
+    # save w ordered columns
+    processed_df.to_csv(output_path, sep='\t', index=False)
     print(f"✅ Archivo guardado como {output_path}\n")
     
     
