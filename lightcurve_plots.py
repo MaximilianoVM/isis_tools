@@ -4,6 +4,8 @@ import numpy as np
 import matplotlib.pyplot as plt
 import pandas as pd
 
+PUNTO = 2
+
 # === PLOT EN FASE === 
 # ojo con lc_path dependiendo de donde ejecutes czerny
 def plot_phase(set='3'): 
@@ -17,7 +19,7 @@ def plot_phase(set='3'):
 
     # Generar la grafica
     plt.figure(figsize=(8, 6))
-    plt.scatter(phase, flux, s=1, color='blue', label='Curva de luz')
+    plt.scatter(phase, flux, s=PUNTO, color='blue', label='Curva de luz')
     plt.xlabel('Fase')
     plt.ylabel('Flujo')
     plt.title('Curva de luz en fase (lc#.data)')
@@ -34,7 +36,7 @@ def plot_lc(lc_path='./images3/lc0.data'):
 
     # Generar la grafica
     plt.figure(figsize=(8, 6))
-    plt.scatter(jd, values, s=1, color='blue', label='Curva de luz')
+    plt.scatter(jd, values, s=PUNTO, color='blue', label='Curva de luz')
     plt.xlabel('Fase')
     plt.ylabel('Flujo')
     plt.title('Curva de Luz (lc.data)')
@@ -58,7 +60,7 @@ def save_lc(lc_name='lc1.data', set=3, color='blue'):
 
     # Generar la grafica
     plt.figure(figsize=(8, 6))
-    plt.scatter(jd, values, s=1, color=color, label='Curva de luz')
+    plt.scatter(jd, values, s=PUNTO, color=color, label='Curva de luz')
     plt.xlabel('JD')
     plt.ylabel('Value')
     plt.title(f'Curva de Luz ({lc_name}), coords:{lc_coords}')
@@ -103,7 +105,7 @@ def plot_lc_grouped(file_list_dir='./inputs/lc_list_group.data'):
 
     # Generar la gráfica
     plt.figure(figsize=(10, 7))
-    plt.scatter(jd_combined, values_combined, s=1, color='blue', label='Curva de luz combinada')
+    plt.scatter(jd_combined, values_combined, s=PUNTO, color='blue', label='Curva de luz combinada')
     plt.xlabel('Fase (JD)')
     plt.ylabel('Flujo')
     plt.title('Curva de Luz Combinada')
