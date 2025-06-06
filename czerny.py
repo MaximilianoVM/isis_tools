@@ -4,6 +4,8 @@ import numpy as np
 import matplotlib.pyplot as plt
 import pandas as pd
 
+PUNTO = 2.5
+
 def czerny(lc_file='lc0.data', set=3): 
     lc_output = "lc.data"  # Archivo de salida esperado
     print(f"\n⚙️ Procesando {lc_file}...")
@@ -67,7 +69,7 @@ def czerny_plot(lc_num='#', set=set, color='magenta'):
 
     # Generar grafica
     plt.figure(figsize=(8, 6))
-    plt.scatter(phase, flux, s=1, color=color, label=f'Curva {lc_num}')
+    plt.scatter(phase, flux, s=PUNTO, color=color, label=f'Curva {lc_num}')
     plt.xlabel('Fase')
     plt.ylabel('Flujo')
     plt.title(last_line)
