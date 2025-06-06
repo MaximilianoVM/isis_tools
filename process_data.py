@@ -21,11 +21,11 @@ for file in glob.glob(f"{DATA_DIR}/lc*.data"):
 
     
     # datos a dataframes y asignamos nombres de columnas
-    header_info_df, lc_data_df = format_archives(header_file, file)
+    header_info_df, lc_data_df = format_archives(header_file, file, 'HJD')
     # aplicamos offset para el posterior paso de magnitudes
     lc_data_df = offset(lc_data_df)
     # asignamos sus headers a los datos para mejor manejo en un solo df
-    merged_df = merge_data(lc_data_df, header_info_df)
+    merged_df = merge_data(lc_data_df, header_info_df, 'HJD')
     # pasamos el flujo a magnitud instrumental 
     instrumental_magnitude(merged_df)
 
