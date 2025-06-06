@@ -37,8 +37,8 @@ def offset(lc_data):
 
 def merge_data(lc_data, header_info, date_format='HJD'): 
     merged_df = pd.merge_asof(
-        lc_data,                # DataFrame base
-        header_info,            # DataFrame a unir
+        lc_data.sort_values(by=date_format),                # DataFrame base
+        header_info.sort_values(by=date_format),            # DataFrame a unir
         on=date_format,               # columna clave
         direction='nearest',   # unir con el HJD más cercano
         tolerance=0.0005       # tolerancia opcional para evitar errores si hay diferencias grandes
