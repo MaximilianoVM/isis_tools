@@ -29,7 +29,13 @@ for file in glob.glob(f"{DATA_DIR}/lc*.data"):
     # pasamos el flujo a magnitud instrumental 
     instrumental_magnitude(merged_df)
 
-    output_path = f"{DATA_DIR}/lc{number}_processed.data"
+    # guardamos
+    output_dir = f"{DATA_DIR}/processed"
+    output_path = f"{output_dir}/lc{number}_processed.data"
+    # crear directorios si no existen
+    os.makedirs(output_dir, exist_ok=True)
+
+    # guardar archivo
     merged_df.to_csv(output_path, sep='\t', index=False)
     print(f"✅ Archivo guardado como {output_path}\n")
     
