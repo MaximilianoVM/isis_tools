@@ -6,12 +6,14 @@ import os
 from process_methods import format_archives, calculate_offset, merge_by_date, instrumental_magnitude
 
 DATA_DIR = str(input("DATA_DIR: ej. NGC_6426V \n"))
-IMAGES_DIR = str(input("IMAGES_DIR: ej. 6426V \n"))
+IMAGES_DIR = str(input("header_info_images????: ej. 6426V \n"))
 header_file = f'{DATA_DIR}/header_info_images{IMAGES_DIR}'
 
 DATE_FORMAT = str(input("JD o HJD \n"))
 
-pattern = re.compile(r"lc(\d+)\.data$")
+#pattern = re.compile(r"lc(\d+)\.data$")
+pattern = re.compile(r"lc(\d+)(?:_(\d+))?\.data$") # para los MERGED
+
 
 for file in glob.glob(f"{DATA_DIR}/lc*.data"):
     match = pattern.search(os.path.basename(file))
