@@ -1,16 +1,12 @@
 import pandas as pd
 import numpy as np
 
-header_file = 'header_info_images6426V'
-data_file = 'lc44.data'
-otuput_name = 'lc44_processed.data'
-
 
 def format_archives(header_file, data_file, date_format): 
     # load data
-    header_info = pd.read_csv(header_file, delim_whitespace=True, names=['file', 'JD', 'HJD', 'UT', 'EXPTIME', 'FILTER'])
+    header_info = pd.read_csv(header_file, delim_whitespace=True, names=['file', 'JD', 'HJD', 'UT', 'EXPTIME', 'FILTER'], index_col=False)
 
-    lc_data = pd.read_csv(data_file, delim_whitespace=True, names=[date_format, 'Flux', 'errFlux', 'refFlux', 'errRefF', 'calSNR'])
+    lc_data = pd.read_csv(data_file, delim_whitespace=True, names=[date_format, 'Flux', 'errFlux', 'refFlux', 'errRefF', 'calSNR'], index_col=False)
 
     # JD - 2460400
     header_info['JD'] = header_info['JD'] - 2460400
