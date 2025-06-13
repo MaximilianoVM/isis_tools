@@ -10,7 +10,7 @@ PUNTO = 2
 # ojo con lc_path dependiendo de donde ejecutes czerny
 def plot_phase(set='3'): 
     
-    lc_path=f'./images{set}/lc.data'
+    lc_path=f'../images{set}/lc.data'
     data = np.loadtxt(lc_path)
     
     # Separacion de columnas
@@ -28,7 +28,7 @@ def plot_phase(set='3'):
     plt.show()
 
 # === PLOT LC ESPECIFICA ===
-def plot_lc(lc_path='./images3/lc0.data'): 
+def plot_lc(lc_path='../images3/lc0.data'): 
     # Carga de datos
     data = np.loadtxt(lc_path)
     jd = data[:, 0]
