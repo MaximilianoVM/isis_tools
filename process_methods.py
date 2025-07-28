@@ -2,12 +2,12 @@ import pandas as pd
 import numpy as np
 
 
-def format_archives(header_file, data_file, date_format): 
+def format_archives(headerfile_path, lc_data_path, date_format): 
     # load data that came from images headers,  name columns
-    header_info = headerfile_to_df(header_file)
+    header_info = headerfile_to_df(headerfile_path)
 
     # load lightcurves data
-    lc_data = raw_lc_to_df(data_file, date_format)
+    lc_data = raw_lc_to_df(lc_data_path, date_format)
 
     # JD - 2460400
     header_info['JD'] = header_info['JD'] - 2460400
@@ -15,12 +15,12 @@ def format_archives(header_file, data_file, date_format):
     
     return header_info, lc_data # return data as dataframes equal in date format
 
-def headerfile_to_df(header_file): 
-    header_info = pd.read_csv(header_file, delim_whitespace=True, names=['file', 'JD', 'HJD', 'UT', 'EXPTIME', 'FILTER'], index_col=False)
+def headerfile_to_df(headerfile_path): 
+    header_info = pd.read_csv(headerfile_path, delim_whitespace=True, names=['file', 'JD', 'HJD', 'UT', 'EXPTIME', 'FILTER'], index_col=False)
     return header_info
 
-def raw_lc_to_df(data_file, date_format): 
-    lc_data = pd.read_csv(data_file, delim_whitespace=True, names=[date_format, 'Flux', 'errFlux', 'refFlux', 'errRefF', 'calSNR'], index_col=False)
+def raw_lc_to_df(lc_data_path, date_format='HJD'): 
+    lc_data = pd.read_csv(lc_data_path, delim_whitespace=True, names=[date_format, 'Flux', 'errFlux', 'refFlux', 'errRefF', 'calSNR'], index_col=False)
     return lc_data
 
 
@@ -37,11 +37,12 @@ def merge_by_date(lc_data, header_info, date_format):
 
 def instrumental_magnitude(lc_data): 
     # Flux to instrumental magnitude
+    df_w_instrumental = lc_data.copy()
     
-    offset = calculate_offset(lc_data)
+    offset = calculate_offset(df_w_instrumental)
     
-    lc_data['MagInstr'] = 25.0 - 2.5*np.log10(lc_data['Flux']+offset) + 2.5*np.log10(lc_data['EXPTIME'])
-    return lc_data
+    df_w_instrumental['MagInstr'] = 25.0 - 2.5*np.log10(df_w_instrumental['Flux']+offset) + 2.5*np.log10(df_w_instrumental['EXPTIME'])
+    return df_w_instrumental
 
 
 def calculate_offset(lc_data):
@@ -73,6 +74,7 @@ def sigma_rejection(df, column, num_sigma):
     return filtered_df
 
 def zero_point_align(df, method='median', column='Flux'): # method = ['mean', 'median']
+    df_aligned = df.copy()
     y_axis = np.array(df[column]) 
     
     # apply mean or median 
@@ -80,12 +82,17 @@ def zero_point_align(df, method='median', column='Flux'): # method = ['mean', 'm
         value = np.mean(y_axis)
     else: 
         value = np.median(y_axis)
-    
+        
     # make mean/median zero
+    
+    new_column = 'aligned_'+str(column)
+    
     if value < 0: 
-        df[column] = df[column] + value
+        df_aligned[new_column] = df_aligned[column] + value
     elif value > 0: 
-        df[column] = df[column] - value
+        df_aligned[new_column] = df_aligned[column] - value
+                
+    return df_aligned
 
 
 
