@@ -5,7 +5,7 @@ from czerny import czerny, czerny_plot
 
 set = str(input("ingresa el NUMERO del set. 🗃️ ej: 3 para images3, 2 para images2: \n"))
 #color = str(input("ingresa el color para tus curvas \n ej. red 🔴, magenta 🟣, green 🟢, blue 🔵:\n"))
-color = 'magenta'
+color = 'black'
 
 # Definir directorios
 output_dir = f"./imagenes_curvas_{set}"

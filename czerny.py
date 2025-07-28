@@ -4,7 +4,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import pandas as pd
 
-PUNTO = 2.5
+PUNTO = 4
 
 def czerny(lc_file='lc0.data', set=3): 
     lc_output = "lc.data"  # Archivo de salida esperado

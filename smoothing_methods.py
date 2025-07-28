@@ -12,6 +12,14 @@ def plot_lc(x, y):
     plt.grid()
     plt.show()
     
+def plot_axes_lc(hjd, flux, ax=None):
+    if ax is None:
+        fig, ax = plt.subplots()
+    ax.plot(hjd, flux, '.', color='blue', markersize=2.5)
+    ax.set_xlabel('HJD')
+    ax.set_ylabel('Flux')
+    ax.set_title('Light Curve')
+    ax.grid(True)
     
     
 def plot_subset(x_column, y_column, lc_data, subset): 

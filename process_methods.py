@@ -3,16 +3,25 @@ import numpy as np
 
 
 def format_archives(header_file, data_file, date_format): 
-    # load data
-    header_info = pd.read_csv(header_file, delim_whitespace=True, names=['file', 'JD', 'HJD', 'UT', 'EXPTIME', 'FILTER'], index_col=False)
+    # load data that came from images headers,  name columns
+    header_info = headerfile_to_df(header_file)
 
-    lc_data = pd.read_csv(data_file, delim_whitespace=True, names=[date_format, 'Flux', 'errFlux', 'refFlux', 'errRefF', 'calSNR'], index_col=False)
+    # load lightcurves data
+    lc_data = raw_lc_to_df(data_file, date_format)
 
     # JD - 2460400
     header_info['JD'] = header_info['JD'] - 2460400
     header_info['HJD'] = header_info['HJD'] - 2460400
     
-    return header_info, lc_data
+    return header_info, lc_data # return data as dataframes equal in date format
+
+def headerfile_to_df(header_file): 
+    header_info = pd.read_csv(header_file, delim_whitespace=True, names=['file', 'JD', 'HJD', 'UT', 'EXPTIME', 'FILTER'], index_col=False)
+    return header_info
+
+def raw_lc_to_df(data_file, date_format): 
+    lc_data = pd.read_csv(data_file, delim_whitespace=True, names=[date_format, 'Flux', 'errFlux', 'refFlux', 'errRefF', 'calSNR'], index_col=False)
+    return lc_data
 
 
 def merge_by_date(lc_data, header_info, date_format): 
@@ -45,7 +54,38 @@ def calculate_offset(lc_data):
     return offset
 
 
+# ===== Julio 2025 =====
 
+def sigma_rejection(df, column, num_sigma): 
+    # make column an numpy array
+    elements = np.array(df[column])
+
+    # get median and standard deviation
+    mean = np.mean(elements)
+    sd = np.std(elements)
+
+    # filter DataFrame
+    filtered_df = df[
+        (df[column] > mean - num_sigma * sd) & 
+        (df[column] < mean + num_sigma * sd)
+    ]
+    
+    return filtered_df
+
+def zero_point_align(df, method='median', column='Flux'): # method = ['mean', 'median']
+    y_axis = np.array(df[column]) 
+    
+    # apply mean or median 
+    if method == 'mean': 
+        value = np.mean(y_axis)
+    else: 
+        value = np.median(y_axis)
+    
+    # make mean/median zero
+    if value < 0: 
+        df[column] = df[column] + value
+    elif value > 0: 
+        df[column] = df[column] - value
 
 
 
