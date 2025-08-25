@@ -44,6 +44,27 @@ def plot_lc(lc_path='../images3/lc0.data'):
     plt.grid()
     plt.show()
     
+    
+# ==== PLOT LC DADA UNA FASE ===
+def plot_given_phase(lc_path, phase, shift, output_path):
+    data = np.loadtxt(lc_path)
+    jd = data[:, 0]
+    values = data[:, 1]
+    jd = (jd+shift) % phase
+    
+    # Generar la grafica
+    plt.figure(figsize=(8, 6))
+    plt.scatter(jd, values, s=1, color='magenta', label='Curva de luz')
+    plt.xlabel('Fase')
+    plt.ylabel('Flujo')
+    plt.title('Curva de Luz (lc.data)')
+    plt.legend()
+    plt.grid()
+    plt.show()
+    
+    # Guardar la grafica
+    plt.savefig(output_path)
+    
 # === SAVE LC ESPECIFICA ===
 def save_lc(lc_name='lc1.data', set=3, color='blue'): 
     output_dir = f"./imagenes_curvas_{set}" # aqui se guardan

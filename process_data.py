@@ -56,7 +56,16 @@ for file in glob.glob(f"{DATA_DIR}/lc*.data"):
     processed_df = processed_df.drop(['refFlux', 'errFlux', 'errRefF'], axis=1)
 
     # save w ordered columns
-    processed_df.to_csv(output_path, sep='\t', index=False)
-    print(f"✅ Archivo guardado como {output_path}\n")
-    
+    processed_df.to_csv(output_path, sep='\t', index=False, header=False)
+    print(f"✅ Datos guardados en: {output_path} (sin encabezados)")
+
+# Crear archivo de metadatos con el orden final de columnas
+metadata_path = '/lc_processed.metadata'
+with open(metadata_path, 'w') as f:
+    f.write("# Descripción de columnas (ordenadas):\n")
+    for i, col in enumerate(processed_df.columns, 1):
+        f.write(f"# {i}: {col}\n")  # Añade descripciones personalizadas si es necesario
+
+print(f"✅ Metadatos guardados en: {output_dir+metadata_path}")
+print("Orden final de columnas:", list(processed_df.columns))
     
