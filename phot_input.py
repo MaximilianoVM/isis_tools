@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 import pandas as pd
 
 
-def get_coords(coords_path, reference_fit, wcs_file, output_name, filtrar=False, show_id=False): 
+def get_coords(coords_path, reference_fit, wcs_file, output_name, output_dir, filtrar=False, show_id=False): 
     # Lee directamente en un array
     data = np.loadtxt(coords_path)
 
@@ -21,9 +21,11 @@ def get_coords(coords_path, reference_fit, wcs_file, output_name, filtrar=False,
     hdr = fits.getheader(wcs_file)
     W = hdr.get('IMAGEW')   # 967 en tu header
     H = hdr.get('IMAGEH')   # 988 en tu header
+    
+    borde = 10
 
     if filtrar: 
-        inside = (x_phys >= 0) & (x_phys <= W) & (y_phys >= 0) & (y_phys <= H)
+        inside = (x_phys >= 0+borde) & (x_phys <= W-borde) & (y_phys >= 0+borde) & (y_phys <= H-borde)
         print("Dentro de imagen:", inside)
         x_phys = x_phys[inside]
         y_phys = y_phys[inside]
@@ -34,10 +36,10 @@ def get_coords(coords_path, reference_fit, wcs_file, output_name, filtrar=False,
         
     df = phot_input_df(x_phys, y_phys, ras, decs, ids, valor)
 
-    plot_coords(reference_fit, x_phys, y_phys, ids, save_path='phot_'+output_name+'.png', show_id=show_id)
+    plot_coords(reference_fit, x_phys, y_phys, ids, save_path=output_dir+'/phot_'+output_name+'.png', show_id=show_id)
     
     # Guardar con el formato exacto
-    df.to_csv('phot_'+output_name+'.data', sep=' ', index=False, header=False, float_format='%.6f')
+    df.iloc[:,:-3].to_csv(output_dir+'/phot_'+output_name+'.data', sep=' ', index=False, header=False, float_format='%.6f')
     
     return df
 
