@@ -65,6 +65,19 @@ def plot_given_phase(lc_path, phase, shift, output_path):
     # Guardar la grafica
     plt.savefig(output_path)
     
+def plot_given_phase_byxy(jd, values, phase, shift=0):
+    jd = (jd+shift) % phase
+    
+    # Generar la grafica
+    plt.figure(figsize=(8, 6))
+    plt.scatter(jd, values, s=2, color='blue', label='Curva de luz')
+    plt.xlabel('Fase')
+    plt.ylabel('Flujo')
+    plt.title('Curva de Luz (lc.data)')
+    plt.legend()
+    plt.grid()
+    plt.show()
+    
 # === SAVE LC ESPECIFICA ===
 def save_lc(lc_name='lc1.data', set=3, color='blue'): 
     output_dir = f"./imagenes_curvas_{set}" # aqui se guardan
@@ -132,4 +145,68 @@ def plot_lc_grouped(file_list_dir='./inputs/lc_list_group.data'):
     plt.title('Curva de Luz Combinada')
     plt.legend()
     plt.grid()
+    plt.show()
+
+
+# ===================================================
+# ==================== sept 2025 ====================
+# ===================================================
+
+def raul_plot(v_path, i_path, period, hjd0 = 2460000.0):
+    
+    star_lc_V_path = v_path
+    star_lc_I_path = i_path
+    
+    star_lc_V = np.loadtxt(star_lc_V_path, unpack=True)
+    star_lc_I = np.loadtxt(star_lc_I_path, unpack=True)
+    
+    HJD_V, mag_V = star_lc_V[0], star_lc_V[-1]
+    HJD_I, mag_I = star_lc_I[0], star_lc_I[-1]
+    
+    def phase_fold(HJD, HJD0, P):
+        phase = (HJD - HJD0) / P
+        phase = phase - np.floor(phase)   # entre 0 y 1
+        return phase
+
+    phase_V = phase_fold(HJD_V, hjd0, period)
+    phase_I = phase_fold(HJD_I, hjd0, period)
+
+    plt.figure(figsize=(8,6))
+    plt.scatter(phase_V, mag_V, s=5, color="green", label="V")
+    plt.scatter(phase_V-1, mag_V, s=5, color="green")  # repetir en -1
+    plt.scatter(phase_V+1, mag_V, s=5, color="green")  # repetir en +1
+    plt.scatter(phase_I, mag_I, s=5, color="red", label="I")
+    plt.scatter(phase_I-1, mag_I, s=5, color="red")
+    plt.scatter(phase_I+1, mag_I, s=5, color="red")
+
+    plt.gca().invert_yaxis()
+    plt.xlabel("Phase")
+    plt.ylabel("Magnitude")
+    plt.title(f"Objeto. P={period:.6f} d, HJD0={hjd0}")
+    plt.xlim(-0.6, 0.6)
+    plt.legend()
+    plt.show()
+    
+def raul_plot_byxy(x, y, period, hjd0 = 2460000.0):
+    
+    HJD_V, mag_V = x, y
+    
+    def phase_fold(HJD, HJD0, P):
+        phase = (HJD - HJD0) / P
+        phase = phase - np.floor(phase)   # entre 0 y 1
+        return phase
+
+    phase_V = phase_fold(HJD_V, hjd0, period)
+    
+    plt.figure(figsize=(8,6))
+    plt.scatter(phase_V, mag_V, s=5, color="green", label="V")
+    plt.scatter(phase_V-1, mag_V, s=5, color="green")  # repetir en -1
+    plt.scatter(phase_V+1, mag_V, s=5, color="green")  # repetir en +1
+
+    plt.gca().invert_yaxis()
+    plt.xlabel("Phase")
+    plt.ylabel("Magnitude")
+    plt.title(f"Objeto. P={period:.6f} d, HJD0={hjd0}")
+    plt.xlim(-0.6, 0.6)
+    plt.legend()
     plt.show()
