@@ -16,6 +16,7 @@
 mkdir {{ register_dir }}
 
 cp {{ prev_register_dir }}/* {{ register_dir }}/
+cd {{ register_dir }}
 ```
 
 ### Dates
@@ -26,6 +27,7 @@ cd {{ images_dir }}
 # extraer **HJD** de los headers
 hselect 202*o.fit $I,**HJD** yes > ../{{ register_dir }}/dates
 !xed ../{{ register_dir }}/dates
+ls 202*.fit | wc -l
 ```
 
 ### FWHM list
@@ -39,7 +41,7 @@ hselect 202*o.fit $I,FWHM,SIGMA,E_AMASS,SKY yes > fwhm_sigma_amass_sky
 !xed FSAS_sortby_fwhm
 ```
 
-### ref_list:
+### ref_list (~10%):
 
 ```bash
 imexam *.fit
@@ -162,6 +164,13 @@ cp interp_REFERENCE.fit ../isis_tools/{{ outputs_dir }}/
 ```bash
 xed phot.data
 ```
+Nos traemos algunos .fits
+
+```bash
+cp var.fits ../isis_tools/{{ outputs_dir }}/
+cp abs.fits ../isis_tools/{{ outputs_dir }}/
+cp ref.fits ../isis_tools/{{ outputs_dir }}/
+```
 
 ### Corremos el `./phot.csh`
 
@@ -175,7 +184,7 @@ xed phot.data
 
 ```bash
 # desde {{ images_dir }}
-
+ls lc* | wc -l
 !ls lc*.data* | sort -u > LCS_LIST
 ```
 
